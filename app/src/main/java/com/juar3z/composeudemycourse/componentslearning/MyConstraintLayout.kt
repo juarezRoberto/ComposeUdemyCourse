@@ -1,4 +1,4 @@
-package com.juar3z.composeudemycourse.components
+package com.juar3z.composeudemycourse.componentslearning
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

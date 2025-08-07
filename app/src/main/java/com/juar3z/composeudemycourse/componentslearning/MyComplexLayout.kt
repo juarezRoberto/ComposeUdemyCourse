@@ -1,4 +1,4 @@
-package com.juar3z.composeudemycourse.components
+package com.juar3z.composeudemycourse.componentslearning
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,14 +29,18 @@ fun MyComplexLayout(modifier: Modifier = Modifier) {
                 .background(Color.Blue)
         ) {
             Row {
-                Box(modifier = Modifier
-                    .weight(1f)
-                    .height(25.dp)
-                    .background(Color.Gray)) { }
-                Box(modifier = Modifier
-                    .weight(1f)
-                    .height(75.dp)
-                    .background(Color.Green )) { }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(25.dp)
+                        .background(Color.Gray)
+                ) { }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(75.dp)
+                        .background(Color.Green)
+                ) { }
             }
         }
         Box(
