@@ -18,21 +18,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.juar3z.composeudemycourse.R
 
 @Preview(showSystemUi = true)
 @Composable
-fun LoginScreen() {
-    var email by remember { mutableStateOf("") }
+fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+    val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
+
+//    var email by remember { mutableStateOf("") }
 
     Scaffold { padding ->
         Column(
@@ -52,29 +53,30 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.weight(1f))
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = email,
+                value = uiState.email,
                 shape = RoundedCornerShape(10.dp),
                 label = { Text("Usuario, correo electrónico o móvil") },
-                onValueChange = { email = it })
+                onValueChange = { loginViewModel.onEmailChange(it) })
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = email,
+                value = uiState.password,
                 shape = RoundedCornerShape(10.dp),
                 label = { Text("Contraseña") },
-                onValueChange = { email = it })
+                onValueChange = {loginViewModel.onPasswordChange(it) })
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,
                 ),
+                enabled = uiState.isLoginEnabled,
                 onClick = { }) {
                 Text(modifier = Modifier.padding(vertical = 4.dp), text = "Iniciar Sesión")
             }
             Text(modifier = Modifier.padding(top = 16.dp), text = "¿Has olvidado la contraseña?")
             Spacer(modifier = Modifier.weight(1f))
-            OutlinedButton (modifier = Modifier.fillMaxWidth(), onClick = {}) {
+            OutlinedButton(modifier = Modifier.fillMaxWidth(), onClick = {}) {
                 Text("Crear cuenta nueva")
             }
             Image(
